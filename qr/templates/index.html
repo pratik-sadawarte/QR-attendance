@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <title>EduAdmin - Teachers Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="logo">
+   <a href="{{ url_for('index_page') }}">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+    QR Attendance
+</a>
+        </div>
+        <div class="nav-right">
+            <div class="nav-icons">
+                <div class="profile">
+                    <i class="fas fa-user"></i>
+                    Admin User
+                </div>
+            </div>
+              <button class="add-teacher-btn" onclick="openAddModal()">
+                + Add Teacher
+            </button>
+        </div>
+    
+
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <ul>
+            <li class="sidebar-item active" onclick="switchView('teachers')">
+                <i class="fas fa-users"></i>
+                Teachers
+            </li>
+            <!-- <li class="sidebar-item" onclick="switchView('schedule')">
+                <i class="fas fa-calendar-alt"></i>
+                Schedule
+            </li>
+            <li class="sidebar-item" onclick="switchView('lectures')">
+                <i class="fas fa-book"></i>
+                Lectures
+            </li> -->
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="header">Teachers Management</h1>
+        <div class="teacher-grid">
+               <div class="teacher-card" data-teacher-id="1">
+        <div class="card-header">
+            <div class="profile-pic">
+                <img src="{{ url_for('static', filename='images/profile_pic1.jpg') }}" alt="Profile Picture">
+            </div>
+            <div class="card-info">
+                <h3 class="teacherName">Dr. Sarah Johnson</h3>
+                <div class="subject">Mathematics</div>
+            </div>
+        </div>
+        <div class="contact-item"><i class="fas fa-envelope"></i>Email: sarah.johnson@school.edu</div>
+        <div class="contact-item"><i class="fas fa-phone"></i>Phone: 55690458859</div>
+        <div class="contact-item"><i class="fas fa-file-alt"></i>12 lectures</div>
+        <div class="card-actions">
+            <button class="generateQrBtn action-btn qr-btn" onclick="generateQr(this)">Generate QR</button>
+            <!-- <button type="button" class="action-btn delete-btn">Delete</button> -->
+        </div>
+    </div>
+
+           <!-- Teacher Card 2 -->
+            <div class="teacher-card" data-teacher-id="2">
+                <div class="card-header">
+                    <div class="profile-pic">
+                <img src="{{ url_for('static', filename='images/profile_pic2.png') }}" alt="Profile Picture">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="teacherName">Prof. Michael Chen</h3>
+                        <div class="subject">Computer Science</div>
+                    </div>
+                </div>
+               <div class="contact-item"><i class="fas fa-envelope"></i>Email: michael.chen@school.edu</div>
+        <div class="contact-item"><i class="fas fa-phone"></i>Phone: 9574653222</div>
+        <div class="contact-item"><i class="fas fa-file-alt"></i>15 lectures</div>
+        <div class="card-actions">
+            <button class="generateQrBtn action-btn qr-btn" onclick="generateQr(this)">Generate QR</button>
+            <!-- <button type="button" class="action-btn delete-btn">Delete</button> -->
+        </div>
+                </div>
+
+            <!-- Teacher Card 3 -->
+            <div class="teacher-card" data-teacher-id="3">
+                <div class="card-header">
+                    <div class="profile-pic">
+                <img src="{{ url_for('static', filename='images/profile_pic3.jpg') }}" alt="Profile Picture">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="teacherName">Ms. Emily Rodriguez</h3>
+                        <div class="subject">English Literature</div>
+                    </div>
+                </div>
+                        <div class="contact-item"><i class="fas fa-envelope"></i>Email: emily@school.edu</div>
+                <div class="contact-item"><i class="fas fa-phone"></i>Phone: 678884456859</div>
+                <div class="contact-item"><i class="fas fa-file-alt"></i>9 lectures</div>
+                <div class="card-actions">
+            <button class="generateQrBtn action-btn qr-btn" onclick="generateQr(this)">Generate QR</button>
+            <!-- <button type="button" class="action-btn delete-btn">Delete</button> -->
+        </div>
+            </div>
+
+            <!-- Teacher Card 4 -->
+            <div class="teacher-card" data-teacher-id="4">
+                <div class="card-header">
+                    <div class="profile-pic">
+                <img src="{{ url_for('static', filename='images/profile_pic4.png') }}" alt="Profile Picture">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="teacherName" >Dr. James Wilson</h3>
+                        <div class="subject">Physics</div>
+                    </div>
+                </div>
+                <div class="contact-item"><i class="fas fa-envelope"></i>Email: wilson@school.edu</div>
+        <div class="contact-item"><i class="fas fa-phone"></i>Phone: 9000760458859</div>
+        <div class="contact-item"><i class="fas fa-file-alt"></i>10 lectures</div>
+        <div class="card-actions">
+            <button class="generateQrBtn action-btn qr-btn" onclick="generateQr(this)">Generate QR</button>
+            <!-- <button type="button" class="action-btn delete-btn">Delete</button> -->
+        </div>
+            </div>
+        </div>
+    </main>
+<!-- Your existing dashboard content with teacher cards here -->
+<!-- QR Modal -->
+<div id="qrModal" class="qr-modal">
+    <div class="qr-modal-content">
+        <div class="qr-modal-header">
+            <p id="qrTeacherName">Teacher Name :</p><br>  
+           <span id="closeModal" class="qr-close">&times;</span>
+        </div>
+        <div class="qr-modal-header">
+        <p id="qrsubject">SubjectName : </p>
+        </div>
+        <div class="qr-modal-body">
+            <img id="modalQrImage" src="" alt="QR Code" >
+        </div>
+        <div id="qrTimer" style="display:none;"></div>
+        <div class="qr-modal-footer">
+            <button id="downloadQr">Download QR</button>
+            <button id="shareQr">Share QR</button> 
+        </div>
+    </div>
+</div>
+<!-- <div id="qrDisplayCard" class="qr-display-card" style="display:none;">
+    <div class="qr-header">
+        <h3 id="qrTeacherName">Teacher Name</h3>
+        <button id="closeQrCard">× Close</button>
+    </div>
+    <div class="qr-subject" id="qrSubject">Subject</div>
+    <div class="qr-body">
+        <div id="qrLoading" style="display:none; text-align:center;">Generating QR...</div>
+        <img id="qrCardImage" src="" alt="QR Code" width="250" style="display:none;">
+    </div>
+    <div id="qrTimer" style="text-align:center; margin-top:5px; font-weight:bold; color:red; display:none;"></div>
+    <div class="qr-footer">
+        <button id="downloadQr">Download QR</button>
+        <button id="shareQr">Share QR</button>
+    </div>
+</div> -->
+
+<!-- JS script at the very end -->
+ <!-- Your main content here -->
+
+<!-- QR Modal -->
+<div id="qrModal" class="qr-modal">
+  <div class="qr-modal-content">
+    <div class="qr-modal-header">
+      <h3 id="qrTeacherName">Teacher Name</h3>
+      <span id="closeModal" class="qr-close">&times;</span>
+    </div>
+    <div class="qr-modal-body">
+      <p id="qrSubject">Subject: </p>
+      <img id="modalQrImage" src="/static/images/form_qr.png" alt="QR Code" />
+
+    </div>
+    <div class="qr-modal-footer">
+      <button id="closeQr">Close</button>
+    </div>
+  </div>
+</div>
+<!-- Add Teacher Modal -->
+<div id="addModal" class="add-modal">
+  <div class="add-modal-content">
+    <span class="close-btn" onclick="closeAddModal()">&times;</span>
+    <h3>Add Teacher</h3>
+    <input type="text" id="teacherName" placeholder="Teacher Name">
+    <input type="text" id="teacherSubject" placeholder="Subject">
+    <input type="text" id="teacherFormLink" placeholder="Google Form Link">
+    <button onclick="submitAddTeacher()">Add Teacher</button>
+  </div>
+</div>
+
+<!-- Your JS file -->
+<script src="{{ url_for('static', filename='function.js') }}"></script>
+</body>
+</html>
